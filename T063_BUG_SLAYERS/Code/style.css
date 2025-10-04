@@ -1,0 +1,151 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7f6; /* Light, calming background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px; /* Standard width for a receipt */
+    border-top: 5px solid #007bff; /* College/School color */
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    color: #333;
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+
+header p {
+    color: #666;
+    font-size: 16px;
+}
+
+/* --- Transaction Summary Section --- */
+.transaction-summary {
+    text-align: center;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    background-color: #e6f7e9; /* Light green background for success */
+    border: 1px solid #cce8d0;
+}
+
+.status-icon {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.transaction-summary h2 {
+    color: #28a745; /* Green for success */
+    margin: 5px 0 10px 0;
+    font-weight: 600;
+}
+
+.transaction-id {
+    color: #888;
+    font-size: 14px;
+}
+
+/* --- Details Card Section --- */
+.details-card, .recipient-info {
+    margin-bottom: 25px;
+    padding: 15px 0;
+    border-top: 1px solid #eee;
+}
+
+.details-card h3, .recipient-info h3 {
+    color: #007bff;
+    border-bottom: 2px solid #007bff20;
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px dashed #eee;
+}
+
+.detail-row:last-child {
+    border-bottom: none;
+}
+
+.label {
+    color: #555;
+    font-weight: 500;
+}
+
+.value {
+    color: #333;
+    font-weight: 600;
+}
+
+.amount {
+    color: #dc3545; /* Red for emphasis on the amount */
+    font-size: 18px;
+}
+
+/* --- Footer Actions --- */
+.actions {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.print-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 15px;
+    transition: background-color 0.3s;
+}
+
+.print-btn:hover {
+    background-color: #218838;
+}
+
+.back-link {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+/* Media Query for Print */
+@media print {
+    body {
+        background-color: white;
+    }
+    .container {
+        box-shadow: none;
+        border: none;
+        padding: 0;
+        border-top: none;
+    }
+    .actions {
+        display: none; /* Hide buttons and links when printing */
+    }
+}

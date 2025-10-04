@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help Center</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2c3e50;
+            --light: #ecf0f1;
+            --dark: #34495e;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --chatbot-bg: #f8f9fa;
+            --user-msg: #3498db;
+            --bot-msg: #e3f2fd;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--secondary);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        /* Navigation Styles */
+        #main-nav {
+            background: white;
+            border-radius: 12px;
+            padding: 0 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        #main-nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 60px;
+        }
+        
+        #main-nav li {
+            margin: 0 15px;
+        }
+        
+        #main-nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+        
+        #main-nav a:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        #main-nav a.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark);
+            font-weight: bold;
+        }
+        
+        .logout-btn {
+            background: none;
+            border: 1px solid white;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .logout-btn:hover {
+            background-color: white;
+            color: var(--secondary);
+        }
+        
+        .help-container {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .help-content {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        
+        .help-content h1 {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light);
+        }
+        
+        .faq-section {
+            margin-bottom: 30px;
+        }
+        
+        .faq-section h2 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .faq-item {
+            margin-bottom: 15px;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            background-color: var(--light);
+            padding: 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+        
+        .faq-question:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .faq-answer {
+            padding: 0 15px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 15px;
+            max-height: 500px;
+        }
+        
+        .contact-info {
+            background-color: var(--light);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+        
+        .contact-info h2 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+        
+        .contact-method {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .contact-method i {
+            width: 30px;
+            color: var(--primary);
+        }
+        
+        /* Chatbot Styles */
+        .chatbot-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            height: 600px;
+        }
+        
+        .chatbot-header {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .chatbot-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 20px;
+        }
+        
+        .chatbot-info h3 {
+            margin-bottom: 5px;
+        }
+        
+        .chatbot-info p {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        
+        .chatbot-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background-color: var(--chatbot-bg);
+        }
+        
+        .message {
+            max-width: 80%;
+            padding: 12px 15px;
+            border-radius: 18px;
+            position: relative;
+            line-height: 1.4;
+        }
+        
+        .user-message {
+            align-self: flex-end;
+            background-color: var(--user-msg);
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+        
+        .bot-message {
+            align-self: flex-start;
+            background-color: var(--bot-msg);
+            color: var(--dark);
+            border-bottom-left-radius: 5px;
+        }
+        
+        .quick-questions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .quick-question {
+            background-color: white;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .quick-question:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .chatbot-input {
+            display: flex;
+            padding: 15px;
+            border-top: 1px solid #eee;
+            background-color: white;
+            border-radius: 0 0 8px 8px;
+        }
+        
+        .chatbot-input input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            outline: none;
+            font-size: 14px;
+        }
+        
+        .chatbot-input button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .chatbot-input button:hover {
+            background-color: #2980b9;
+        }
+        
+        .typing-indicator {
+            display: none;
+            align-self: flex-start;
+            background-color: var(--bot-msg);
+            padding: 12px 15px;
+            border-radius: 18px;
+            border-bottom-left-radius: 5px;
+            color: var(--dark);
+        }
+        
+        .typing-dots {
+            display: flex;
+            gap: 4px;
+        }
+        
+        .typing-dots span {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--dark);
+            opacity: 0.6;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+        
+        .typing-dots span:nth-child(1) { animation-delay: 0s; }
+        .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+        
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-5px); }
+        }
+        
+        @media (max-width: 968px) {
+            .help-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .chatbot-container {
+                height: 500px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            #main-nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">Student Success Portal</div>
+            <div class="user-info">
+                <div class="user-avatar" id="userAvatar">JS</div>
+                <span id="userName">John Smith</span>
+                <button class="logout-btn" id="logoutBtn">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav id="main-nav">
+        <ul>
+            <li><a href="dashboard.html">DASHBOARD</a></li>
+            <li><a href="alert.html">ALERTS</a></li>
+            <li><a href="123.html">PAYMENT</a></li>
+            <li><a href="profile.html">PROFILE</a></li>
+            <li><a href="help.html" class="active">HELP</a></li>
+            <li><a href="feedback.html">FEEDBACK</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        <div class="help-container">
+            <div class="help-content">
+                <h1>Help Center</h1>
+                <p>Find answers to common questions and get support for your university portal issues.</p>
+                
+                <div class="faq-section">
+                    <h2>Frequently Asked Questions</h2>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            How do I reset my password?
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>To reset your password, go to the login page and click on "Forgot Password". Enter your registered email address and follow the instructions sent to your email.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            How can I view my course schedule?
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Your course schedule is available in the Dashboard section. You can also find it under the "Courses" tab where you can see your timetable for the current semester.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            Where can I find my grades?
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Grades are available in the "Courses" section. Click on the specific course to view your assignment scores, exam results, and overall grade for the course.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            How do I make a payment for tuition?
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Tuition payments can be made through the "Payment" section. You can pay using credit/debit cards, bank transfer, or other available payment methods.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            What should I do if I can't access my account?
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>If you're having trouble accessing your account, first try resetting your password. If that doesn't work, contact the IT support team using the contact information below.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-info">
+                    <h2>Contact Support</h2>
+                    <div class="contact-method">
+                        <i class="fas fa-phone"></i>
+                        <span>+1 (555) 123-HELP (4357)</span>
+                    </div>
+                    <div class="contact-method">
+                        <i class="fas fa-envelope"></i>
+                        <span>support@university.edu</span>
+                    </div>
+                    <div class="contact-method">
+                        <i class="fas fa-clock"></i>
+                        <span>Monday - Friday, 9:00 AM - 5:00 PM</span>
+                    </div>
+                    <div class="contact-method">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Student Services Building, Room 205</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chatbot-container">
+                <div class="chatbot-header">
+                    <div class="chatbot-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="chatbot-info">
+                        <h3>University Assistant</h3>
+                        <p>AI-powered help for students</p>
+                    </div>
+                </div>
+                
+                <div class="chatbot-messages" id="chatMessages">
+                    <div class="message bot-message">
+                        Hello! I'm your University Assistant. How can I help you today?
+                        <div class="quick-questions">
+                            <div class="quick-question" data-question="How do I reset my password?">Reset password</div>
+                            <div class="quick-question" data-question="Where can I find my grades?">View grades</div>
+                            <div class="quick-question" data-question="How to pay tuition fees?">Tuition payment</div>
+                            <div class="quick-question" data-question="Contact IT support">IT support</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="typing-indicator" id="typingIndicator">
+                    <div class="typing-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                
+                <div class="chatbot-input">
+                    <input type="text" id="chatInput" placeholder="Type your question here...">
+                    <button id="sendMessage">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Set active navigation based on current page
+        function setActiveNav() {
+            const currentPage = window.location.pathname.split('/').pop() || 'help.html';
+            const navLinks = document.querySelectorAll('#main-nav a');
+            navLinks.forEach(link => {
+                const linkHref = link.getAttribute('href');
+                if (linkHref === currentPage) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        }
+
+        // FAQ functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                faqItem.classList.toggle('active');
+                
+                // Close other open FAQs
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    if (item !== faqItem && item.classList.contains('active')) {
+                        item.classList.remove('active');
+                    }
+                });
+            });
+        });
+
+        // Chatbot functionality
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const sendButton = document.getElementById('sendMessage');
+        const typingIndicator = document.getElementById('typingIndicator');
+
+        // Sample responses for demo - Replace with your AI integration
+        const sampleResponses = {
+            "hello": "Hello! How can I assist you with your university portal today?",
+            "hi": "Hi there! What can I help you with?",
+            "how do i reset my password": "To reset your password, go to the login page and click 'Forgot Password'. Enter your email and follow the instructions sent to you.",
+            "where can i find my grades": "You can find your grades in the 'Courses' section. Click on any course to view your grades and assignment scores.",
+            "how to pay tuition fees": "Tuition payments can be made in the 'Payment' section. We accept credit/debit cards, bank transfers, and other payment methods.",
+            "contact it support": "You can contact IT support at support@university.edu or call +1 (555) 123-HELP. They're available Monday-Friday, 9AM-5PM.",
+            "course registration": "Course registration is available in the 'Courses' section during the registration period. You can add/drop courses from your dashboard.",
+            "academic calendar": "The academic calendar is available on the university website. You can also find important dates in the 'Alerts' section of your portal.",
+            "default": "I'm not sure I understand. Could you please rephrase your question? You can also contact support at support@university.edu for specific issues."
+        };
+
+        // Function to add a message to the chat
+        function addMessage(text, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+            messageDiv.textContent = text;
+            
+            // Add quick questions for bot messages
+            if (!isUser && text.includes('How can I help')) {
+                const quickQuestions = document.createElement('div');
+                quickQuestions.className = 'quick-questions';
+                quickQuestions.innerHTML = `
+                    <div class="quick-question" data-question="How do I reset my password?">Reset password</div>
+                    <div class="quick-question" data-question="Where can I find my grades?">View grades</div>
+                    <div class="quick-question" data-question="How to pay tuition fees?">Tuition payment</div>
+                    <div class="quick-question" data-question="Contact IT support">IT support</div>
+                `;
+                messageDiv.appendChild(quickQuestions);
+            }
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            // Add event listeners to quick questions
+            if (!isUser) {
+                setTimeout(() => {
+                    messageDiv.querySelectorAll('.quick-question').forEach(btn => {
+                        btn.addEventListener('click', () => {
+                            const question = btn.getAttribute('data-question');
+                            addMessage(question, true);
+                            setTimeout(() => generateResponse(question), 500);
+                        });
+                    });
+                }, 100);
+            }
+        }
+
+        // Function to generate a response (replace with your AI integration)
+        function generateResponse(userMessage) {
+            // Show typing indicator
+            typingIndicator.style.display = 'block';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            // Simulate AI processing time
+            setTimeout(() => {
+                // Hide typing indicator
+                typingIndicator.style.display = 'none';
+                
+                // Convert user message to lowercase for matching
+                const lowerMessage = userMessage.toLowerCase();
+                
+                // Find a matching response or use default
+                let response = sampleResponses.default;
+                for (const [key, value] of Object.entries(sampleResponses)) {
+                    if (lowerMessage.includes(key)) {
+                        response = value;
+                        break;
+                    }
+                }
+                
+                // Add the bot's response
+                addMessage(response);
+            }, 1500);
+        }
+
+        // Send message when button is clicked
+        sendButton.addEventListener('click', () => {
+            const message = chatInput.value.trim();
+            if (message) {
+                addMessage(message, true);
+                chatInput.value = '';
+                setTimeout(() => generateResponse(message), 500);
+            }
+        });
+
+        // Send message when Enter key is pressed
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendButton.click();
+            }
+        });
+
+        // Quick question buttons
+        document.querySelectorAll('.quick-question').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const question = btn.getAttribute('data-question');
+                addMessage(question, true);
+                setTimeout(() => generateResponse(question), 500);
+            });
+        });
+
+        // Initialize with user data (you can replace this with actual user data)
+        document.getElementById('userAvatar').textContent = 'JS';
+        document.getElementById('userName').textContent = 'John Smith';
+
+        // Logout functionality
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            if (confirm('Are you sure you want to logout?')) {
+                // In a real implementation, you would clear session and redirect to login
+                alert('Logout successful! Redirecting to login page...');
+                // window.location.href = 'login.html';
+            }
+        });
+
+        // Set active navigation on page load
+        document.addEventListener('DOMContentLoaded', setActiveNav);
+    </script>
+</body>
+</html>

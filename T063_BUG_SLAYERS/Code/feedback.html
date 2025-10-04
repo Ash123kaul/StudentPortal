@@ -1,0 +1,106 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal Feedback</title>
+    <link rel="stylesheet" href="feedback.css">
+</head>
+<body>
+
+    <div class="form-container">
+        <header>
+            <h1>Student Portal Feedback Form</h1>
+            <p>Help us improve your experience! Your honest feedback about the portal is valuable.</p>
+        </header>
+
+        <form action="/submit_portal_feedback" method="POST">
+            
+            <section class="feedback-section">
+                <h2>1. Overall Satisfaction & Usability</h2>
+                
+                <div class="form-group rating-group">
+                    <label>How would you rate your **overall experience** with the Student Portal?</label>
+                    <div class="rating-scale">
+                        <span>Poor</span>
+                        <input type="radio" id="o_rate1" name="overall_rating" value="1" required><label for="o_rate1">1</label>
+                        <input type="radio" id="o_rate2" name="overall_rating" value="2"><label for="o_rate2">2</label>
+                        <input type="radio" id="o_rate3" name="overall_rating" value="3"><label for="o_rate3">3</label>
+                        <input type="radio" id="o_rate4" name="overall_rating" value="4"><label for="o_rate4">4</label>
+                        <input type="radio" id="o_rate5" name="overall_rating" value="5"><label for="o_rate5">5</label>
+                        <span>Excellent</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="ease_of_use">How easy is it to find the information you need?</label>
+                    <select id="ease_of_use" name="ease_of_use" required>
+                        <option value="">-- Select an option --</option>
+                        <option value="very_easy">Very Easy</option>
+                        <option value="easy">Easy</option>
+                        <option value="moderate">Moderate</option>
+                        <option value="difficult">Difficult</option>
+                        <option value="very_difficult">Very Difficult</option>
+                    </select>
+                </div>
+            </section>
+
+            <section class="feedback-section">
+                <h2>2. Portal Features</h2>
+                
+                <div class="form-group">
+                    <label>Which features do you use the most? (Select all that apply)</label>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="grades" name="feature_usage" value="Grades/Marks">
+                        <label for="grades">Viewing Grades/Marks</label><br>
+                        
+                        <input type="checkbox" id="attendance" name="feature_usage" value="Attendance Tracking">
+                        <label for="attendance">Attendance Tracking</label><br>
+                        
+                        <input type="checkbox" id="fees" name="feature_usage" value="Fee Payment/Statements">
+                        <label for="fees">Fee Payment/Statements</label><br>
+                        
+                        <input type="checkbox" id="timetable" name="feature_usage" value="Timetable/Schedule">
+                        <label for="timetable">Timetable/Schedule</label><br>
+                        
+                        <input type="checkbox" id="announcements" name="feature_usage" value="Announcements/Notices">
+                        <label for="announcements">Announcements/Notices</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="missing_feature">Is there any feature you wish the portal had that is currently missing?</label>
+                    <textarea id="missing_feature" name="missing_feature" rows="3"></textarea>
+                </div>
+            </section>
+
+            <section class="feedback-section">
+                <h2>3. Suggestions and Comments</h2>
+                
+                <div class="form-group">
+                    <label for="improvements">What is the single biggest improvement you think the portal needs?</label>
+                    <textarea id="improvements" name="improvements" rows="4" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="general_comments">Any other comments or suggestions?</label>
+                    <textarea id="general_comments" name="general_comments" rows="3"></textarea>
+                </div>
+            </section>
+
+            <section class="optional-info">
+                <h2>4. Your Information (Optional)</h2>
+                <div class="form-group">
+                    <label for="student_id">Student ID/Roll No. (Optional):</label>
+                    <input type="text" id="student_id" name="student_id">
+                </div>
+            </section>
+
+            <button type="submit" class="submit-btn">Submit Feedback</button>
+
+        </form>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Navigation Styles */
+        #main-nav {
+            background: white;
+            border-radius: 12px;
+            padding: 0 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        #main-nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 60px;
+        }
+
+        #main-nav li {
+            margin: 0 15px;
+        }
+
+        #main-nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        #main-nav a:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        #main-nav a.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .welcome-message h1 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .user-type {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .logout-btn {
+            background: linear-gradient(to right, #ff416c, #ff4b2b);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+
+        .logout-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .student-info-card, .attendance-card, .assessment-card, .alerts-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-title {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 24px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .info-value {
+            color: #333;
+            font-size: 16px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border-left: 4px solid #667eea;
+        }
+
+        .progress-container {
+            margin: 20px 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, #4CAF50, #45a049);
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .attendance-low {
+            background: linear-gradient(to right, #ff416c, #ff4b2b);
+        }
+
+        .fees-status, .attendance-status {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .fees-paid, .status-good {
+            background: #e8f5e8;
+            color: #2e7d32;
+        }
+
+        .fees-pending, .status-poor {
+            background: #ffeaea;
+            color: #d32f2f;
+        }
+
+        .status-warning {
+            background: #fff3e0;
+            color: #ef6c00;
+        }
+
+        .assessment-item {
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .assessment-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .assessment-name {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .assessment-score {
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .alert-item {
+            padding: 15px;
+            background: #fff3e0;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 4px solid #ff9800;
+        }
+
+        .alert-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .alert-type {
+            font-weight: 600;
+            color: #d32f2f;
+        }
+
+        .alert-date {
+            color: #666;
+            font-size: 12px;
+        }
+
+        .alert-message {
+            color: #333;
+            line-height: 1.4;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .error-message {
+            background: #ffeaea;
+            color: #d32f2f;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .permission-fix {
+            background: #fff3e0;
+            color: #ef6c00;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .permission-fix h3 {
+            color: #d32f2f;
+            margin-bottom: 10px;
+        }
+
+        .permission-fix ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .permission-fix li {
+            margin-bottom: 8px;
+        }
+
+        .code-block {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            margin: 10px 0;
+            border-left: 4px solid #ff9800;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav id="main-nav">
+        <ul>
+            <li><a href="dashboard.html" class="active">DASHBOARD</a></li>
+            <li><a href="alert.html">ALERTS</a></li>
+            <li><a href="123.html">payment</a></li>
+            <li><a href="profile.html">profile</a></li>
+            <li><a href="help.html">HELP</a></li>
+        </ul>
+    </nav>
+
+    <div class="dashboard-container">
+        <div class="header">
+            <div class="welcome-message">
+                <h1>Welcome to Student Portal</h1>
+                <div class="user-type" id="userTypeDisplay">Loading...</div>
+            </div>
+            <button class="logout-btn" id="logoutBtn">Logout</button>
+        </div>
+
+        <div id="permissionError" style="display: none;">
+            <div class="permission-fix">
+                <h3>⚠️ Database Permission Required</h3>
+                <p>Your Firebase database is locked. Please follow these steps to fix it:</p>
+                <ol>
+                    <li>Go to <a href="https://console.firebase.google.com/" target="_blank">Firebase Console</a></li>
+                    <li>Select your project "student-portal-cf3fa"</li>
+                    <li>Click on "Realtime Database" in the left sidebar</li>
+                    <li>Go to "Rules" tab</li>
+                    <li>Replace the existing rules with:</li>
+                </ol>
+                <div class="code-block">
+                    {<br>
+                    &nbsp; "rules": {<br>
+                    &nbsp; &nbsp; ".read": "auth != null",<br>
+                    &nbsp; &nbsp; ".write": "auth != null"<br>
+                    &nbsp; }<br>
+                    }
+                </div>
+                <li>Click "Publish"</li>
+                <li>Refresh this page after updating the rules</li>
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="student-info-card">
+                <h2 class="card-title">Student Information</h2>
+                <div id="studentInfo">
+                    <div class="loading">Loading student information...</div>
+                </div>
+            </div>
+
+            <div class="attendance-card">
+                <h2 class="card-title">Attendance Progress</h2>
+                <div id="attendanceInfo">
+                    <div class="loading">Loading attendance data...</div>
+                </div>
+            </div>
+
+            <div class="assessment-card">
+                <h2 class="card-title">Recent Assessments</h2>
+                <div id="assessmentInfo">
+                    <div class="loading">Loading assessment data...</div>
+                </div>
+            </div>
+
+            <div class="alerts-card">
+                <h2 class="card-title">AI Alerts & Notifications</h2>
+                <div id="alertsInfo">
+                    <div class="loading">Checking for alerts...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics-compat.js"></script>
+
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBSZ2Q4h5qC6DdofCHVaAGyCKkJBPDK0Gw",
+            authDomain: "student-portal-cf3fa.firebaseapp.com",
+            databaseURL: "https://student-portal-cf3fa-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "student-portal-cf3fa",
+            storageBucket: "student-portal-cf3fa.firebasestorage.app",
+            messagingSenderId: "259776751437",
+            appId: "1:259776751437:web:211d3c709e22106d463904",
+            measurementId: "G-S7B9ZR9EWW"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const database = firebase.database();
+        const analytics = firebase.analytics();
+
+        console.log('Firebase initialized successfully');
+
+        // DOM elements
+        const logoutBtn = document.getElementById('logoutBtn');
+        const studentInfoDiv = document.getElementById('studentInfo');
+        const attendanceInfoDiv = document.getElementById('attendanceInfo');
+        const assessmentInfoDiv = document.getElementById('assessmentInfo');
+        const alertsInfoDiv = document.getElementById('alertsInfo');
+        const userTypeDisplay = document.getElementById('userTypeDisplay');
+        const permissionErrorDiv = document.getElementById('permissionError');
+        const navLinks = document.querySelectorAll('#main-nav a');
+
+        // Set active navigation based on current page
+        function setActiveNav() {
+            const currentPage = window.location.pathname.split('/').pop() || 'dashboard.html';
+            navLinks.forEach(link => {
+                const linkHref = link.getAttribute('href');
+                if (linkHref === currentPage) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        }
+
+        // Show permission error
+        function showPermissionError() {
+            permissionErrorDiv.style.display = 'block';
+            studentInfoDiv.innerHTML = `
+                <div class="error-message">
+                    <h3>Database Permission Denied</h3>
+                    <p>Please update Firebase database rules as shown above.</p>
+                </div>
+            `;
+            attendanceInfoDiv.innerHTML = `<div class="error-message">Database permission required</div>`;
+            assessmentInfoDiv.innerHTML = `<div class="error-message">Database permission required</div>`;
+            alertsInfoDiv.innerHTML = `<div class="error-message">Database permission required</div>`;
+        }
+
+        // Load student information
+        function loadStudentInfo(user) {
+            console.log('Loading data for user:', user.email);
+            
+            // Get students data from Firebase
+            const studentsRef = database.ref('students');
+            
+            studentsRef.once('value')
+                .then((snapshot) => {
+                    if (snapshot.exists()) {
+                        const studentsData = snapshot.val();
+                        console.log('Students data found:', studentsData);
+                        
+                        // Convert user email to Firebase key format
+                        const userKey = user.email.replace(/[@.]/g, '_');
+                        console.log('Looking for student with key:', userKey);
+                        
+                        let studentData = studentsData[userKey];
+                        
+                        // If not found by key, search by email
+                        if (!studentData) {
+                            console.log('Not found by key, searching by email...');
+                            for (const key in studentsData) {
+                                if (studentsData[key].email === user.email) {
+                                    studentData = studentsData[key];
+                                    console.log('Found student by email with key:', key);
+                                    break;
+                                }
+                            }
+                        } else {
+                            console.log('Found student by key:', userKey);
+                        }
+                        
+                        if (studentData) {
+                            console.log('Student found:', studentData.name);
+                            displayStudentInfo(studentData);
+                            loadAttendanceData(userKey, studentData);
+                            loadAssessmentData(userKey, studentData);
+                            generateAlerts(userKey, studentData);
+                        } else {
+                            console.log('Student record not found');
+                            studentInfoDiv.innerHTML = `
+                                <div class="error-message">
+                                    <h3>Student record not found</h3>
+                                    <p>No student information found for email: ${user.email}</p>
+                                    <p>Please contact administration to set up your student profile.</p>
+                                </div>
+                            `;
+                        }
+                    } else {
+                        console.log('No students data found');
+                        studentInfoDiv.innerHTML = `
+                            <div class="error-message">
+                                <h3>No student records found</h3>
+                                <p>Please contact administration to set up student profiles.</p>
+                            </div>
+                        `;
+                    }
+                })
+                .catch((error) => {
+                    console.error('Database error:', error);
+                    if (error.code === 'PERMISSION_DENIED') {
+                        showPermissionError();
+                    } else {
+                        studentInfoDiv.innerHTML = `
+                            <div class="error-message">
+                                <h3>Error loading student information</h3>
+                                <p>Please try again later or contact support.</p>
+                                <p>Error: ${error.message}</p>
+                            </div>
+                        `;
+                    }
+                });
+        }
+
+        // Display student information
+        function displayStudentInfo(student) {
+            const feesStatus = student.feesPaid ? 
+                '<span class="fees-status fees-paid">Paid</span>' : 
+                '<span class="fees-status fees-pending">Pending</span>';
+
+            studentInfoDiv.innerHTML = `
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Full Name</span>
+                        <div class="info-value">${student.name || 'N/A'}</div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Roll Number</span>
+                        <div class="info-value">${student.rollNo || 'N/A'}</div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Branch</span>
+                        <div class="info-value">${student.branch || 'N/A'}</div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Current Semester</span>
+                        <div class="info-value">${student.semester || 'N/A'}</div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Email Address</span>
+                        <div class="info-value">${student.email || 'N/A'}</div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Phone Number</span>
+                        <div class="info-value">${student.phoneNo || 'N/A'}</div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Parent's Phone</span>
+                        <div class="info-value">${student.parentPhoneNo || 'N/A'}</div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Date of Birth</span>
+                        <div class="info-value">${student.dateOfBirth || 'N/A'}</div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Father's Name</span>
+                        <div class="info-value">${student.fatherName || 'N/A'}</div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Mother's Name</span>
+                        <div class="info-value">${student.motherName || 'N/A'}</div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Address</span>
+                        <div class="info-value">${student.address || 'N/A'}</div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Fee Status</span>
+                        <div class="info-value">${feesStatus}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Load and display attendance data
+        function loadAttendanceData(studentKey, studentData) {
+            const attendanceRef = database.ref(`attendance/${studentKey}`);
+            
+            attendanceRef.once('value')
+                .then((snapshot) => {
+                    let attendanceData;
+                    if (snapshot.exists()) {
+                        attendanceData = snapshot.val();
+                    } else {
+                        // Generate sample attendance data if none exists
+                        attendanceData = generateSampleAttendanceData();
+                        attendanceRef.set(attendanceData);
+                    }
+                    
+                    displayAttendanceInfo(attendanceData);
+                })
+                .catch((error) => {
+                    console.error('Error loading attendance:', error);
+                    attendanceInfoDiv.innerHTML = `<div class="error-message">Error loading attendance data</div>`;
+                });
+        }
+
+        // Display attendance information
+        function displayAttendanceInfo(attendance) {
+            const totalClasses = attendance.totalClasses || 100;
+            const attendedClasses = attendance.attendedClasses || 75;
+            const percentage = ((attendedClasses / totalClasses) * 100).toFixed(1);
+            
+            let statusClass = 'status-good';
+            let statusText = 'Good';
+            
+            if (percentage < 75) {
+                statusClass = 'status-poor';
+                statusText = 'Poor';
+            } else if (percentage < 85) {
+                statusClass = 'status-warning';
+                statusText = 'Warning';
+            }
+            
+            attendanceInfoDiv.innerHTML = `
+                <div class="progress-container">
+                    <div class="progress-text">
+                        <span>Overall Attendance</span>
+                        <span>${percentage}%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill ${percentage < 75 ? 'attendance-low' : ''}" 
+                             style="width: ${percentage}%"></div>
+                    </div>
+                    <div class="progress-text">
+                        <span>${attendedClasses} of ${totalClasses} classes</span>
+                        <span class="attendance-status ${statusClass}">${statusText}</span>
+                    </div>
+                </div>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Subject 1</span>
+                        <div class="info-value">${attendance.subjects?.subject1 || '85%'}</div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Subject 2</span>
+                        <div class="info-value">${attendance.subjects?.subject2 || '78%'}</div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Subject 3</span>
+                        <div class="info-value">${attendance.subjects?.subject3 || '92%'}</div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Subject 4</span>
+                        <div class="info-value">${attendance.subjects?.subject4 || '65%'}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Load and display assessment data
+        function loadAssessmentData(studentKey, studentData) {
+            const assessmentRef = database.ref(`assessments/${studentKey}`);
+            
+            assessmentRef.once('value')
+                .then((snapshot) => {
+                    let assessmentData;
+                    if (snapshot.exists()) {
+                        assessmentData = snapshot.val();
+                    } else {
+                        // Generate sample assessment data if none exists
+                        assessmentData = generateSampleAssessmentData();
+                        assessmentRef.set(assessmentData);
+                    }
+                    
+                    displayAssessmentInfo(assessmentData);
+                })
+                .catch((error) => {
+                    console.error('Error loading assessments:', error);
+                    assessmentInfoDiv.innerHTML = `<div class="error-message">Error loading assessment data</div>`;
+                });
+        }
+
+        // Display assessment information
+        function displayAssessmentInfo(assessments) {
+            let assessmentHTML = '';
+            
+            assessments.recent.forEach(assessment => {
+                assessmentHTML += `
+                    <div class="assessment-item">
+                        <div class="assessment-header">
+                            <span class="assessment-name">${assessment.subject}</span>
+                            <span class="assessment-score">${assessment.score}/100</span>
+                        </div>
+                        <div>${assessment.type} - ${assessment.date}</div>
+                        <div>Grade: ${assessment.grade}</div>
+                    </div>
+                `;
+            });
+            
+            assessmentInfoDiv.innerHTML = assessmentHTML;
+        }
+
+        // Generate AI alerts based on student data
+        function generateAlerts(studentKey, studentData) {
+            const alerts = [];
+            const currentDate = new Date();
+            
+            // Check fee status
+            if (!studentData.feesPaid) {
+                alerts.push({
+                    type: "Fee Alert",
+                    message: "Your semester fees are pending. Please clear the dues to avoid penalties.",
+                    date: currentDate.toISOString().split('T')[0],
+                    priority: "high"
+                });
+            }
+            
+            // Check attendance
+            const attendanceRef = database.ref(`attendance/${studentKey}`);
+            attendanceRef.once('value')
+                .then((attendanceSnapshot) => {
+                    if (attendanceSnapshot.exists()) {
+                        const attendance = attendanceSnapshot.val();
+                        const percentage = ((attendance.attendedClasses / attendance.totalClasses) * 100);
+                        
+                        if (percentage < 75) {
+                            alerts.push({
+                                type: "Attendance Alert",
+                                message: `Your attendance is ${percentage.toFixed(1)}%. You need to maintain at least 75% to avoid detention.`,
+                                date: currentDate.toISOString().split('T')[0],
+                                priority: "high"
+                            });
+                        }
+                    }
+                    
+                    // Check assessment performance
+                    const assessmentRef = database.ref(`assessments/${studentKey}`);
+                    assessmentRef.once('value')
+                        .then((assessmentSnapshot) => {
+                            if (assessmentSnapshot.exists()) {
+                                const assessments = assessmentSnapshot.val();
+                                const lowScores = assessments.recent.filter(a => a.score < 40);
+                                
+                                if (lowScores.length > 0) {
+                                    alerts.push({
+                                        type: "Performance Alert",
+                                        message: `You have ${lowScores.length} subject(s) with scores below 40%. Consider seeking academic help.`,
+                                        date: currentDate.toISOString().split('T')[0],
+                                        priority: "medium"
+                                    });
+                                }
+                            }
+                            
+                            // If no alerts, show positive message
+                            if (alerts.length === 0) {
+                                alerts.push({
+                                    type: "All Good!",
+                                    message: "You're doing great! Keep up the good work.",
+                                    date: currentDate.toISOString().split('T')[0],
+                                    priority: "low"
+                                });
+                            }
+                            
+                            displayAlerts(alerts);
+                        });
+                });
+        }
+
+        // Display alerts
+        function displayAlerts(alerts) {
+            let alertsHTML = '';
+            
+            alerts.forEach(alert => {
+                alertsHTML += `
+                    <div class="alert-item">
+                        <div class="alert-header">
+                            <span class="alert-type">${alert.type}</span>
+                            <span class="alert-date">${alert.date}</span>
+                        </div>
+                        <div class="alert-message">${alert.message}</div>
+                    </div>
+                `;
+            });
+            
+            alertsInfoDiv.innerHTML = alertsHTML;
+        }
+
+        // Generate sample attendance data
+        function generateSampleAttendanceData() {
+            return {
+                totalClasses: 100,
+                attendedClasses: Math.floor(Math.random() * 30) + 70, // 70-100
+                subjects: {
+                    subject1: `${Math.floor(Math.random() * 30) + 70}%`,
+                    subject2: `${Math.floor(Math.random() * 30) + 70}%`,
+                    subject3: `${Math.floor(Math.random() * 30) + 70}%`,
+                    subject4: `${Math.floor(Math.random() * 30) + 70}%`
+                }
+            };
+        }
+
+        // Generate sample assessment data
+        function generateSampleAssessmentData() {
+            const subjects = ['Mathematics', 'Physics', 'Programming', 'Database Systems'];
+            const types = ['Midterm', 'Quiz', 'Assignment', 'Lab Test'];
+            
+            return {
+                recent: subjects.map(subject => {
+                    const score = Math.floor(Math.random() * 40) + 50; // 50-90
+                    return {
+                        subject: subject,
+                        type: types[Math.floor(Math.random() * types.length)],
+                        score: score,
+                        date: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                        grade: score >= 80 ? 'A' : score >= 60 ? 'B' : score >= 40 ? 'C' : 'D'
+                    };
+                })
+            };
+        }
+
+        // Logout functionality
+        logoutBtn.addEventListener('click', async () => {
+            try {
+                await auth.signOut();
+                window.location.href = 'login.html';
+            } catch (error) {
+                console.error('Logout error:', error);
+            }
+        });
+
+        // Check authentication state
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                console.log('User authenticated:', user.email);
+                // User is signed in
+                const userType = localStorage.getItem('userType') || 'Student';
+                userTypeDisplay.textContent = `Logged in as ${userType}`;
+                
+                // Set active navigation
+                setActiveNav();
+                
+                // Load student information directly
+                loadStudentInfo(user);
+            } else {
+                console.log('User not authenticated, redirecting to login');
+                // User is signed out, redirect to login
+                window.location.href = 'login.html';
+            }
+        });
+
+        // Set active navigation on page load
+        document.addEventListener('DOMContentLoaded', setActiveNav);
+    </script>
+</body>
+</html>

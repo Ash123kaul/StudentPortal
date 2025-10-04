@@ -1,0 +1,24 @@
+{
+  "faqs": [
+    {
+      "question": "How can I reset my password?",
+      "answer": "To reset your password, click 'Forgot Password' on the login page and follow the instructions sent to your registered email."
+    },
+    {
+      "question": "How do I check my grades?",
+      "answer": "Go to the 'Academics' section in the student portal, then click 'Grades' to view your results."
+    },
+    {
+      "question": "How do I pay my tuition fees?",
+      "answer": "Navigate to the 'Finance' tab and select 'Fee Payment'. You can pay using a debit card, credit card, or net banking."
+    },
+    {
+      "question": "Who do I contact for technical support?",
+      "answer": "You can contact technical support at support@yourportal.com or call +123456789."
+    },
+    {
+      "question": "How can I update my profile details?",
+      "answer": "Go to the 'Profile' section and click 'Edit' to update your details. Save your changes once done."
+    }
+  ]
+}

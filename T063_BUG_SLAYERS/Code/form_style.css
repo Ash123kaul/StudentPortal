@@ -1,0 +1,136 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5; /* Light grey background */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align to the top for longer forms */
+    padding: 40px 20px;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.form-container {
+    background-color: #ffffff;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 650px; /* Optimal width for form readability */
+    border-top: 5px solid #0056b3; /* School/College primary color */
+}
+
+header {
+    text-align: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+header h1 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+header p {
+    color: #666;
+    font-size: 15px;
+}
+
+section {
+    margin-bottom: 30px;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+}
+
+section h2 {
+    color: #0056b3;
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #0056b330;
+}
+
+/* --- Form Group Styling --- */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Ensures padding doesn't affect total width */
+    font-size: 15px;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+}
+
+/* --- Checkbox Styling --- */
+.checkbox-group {
+    display: flex;
+    align-items: flex-start;
+}
+
+.checkbox-group input[type="checkbox"] {
+    margin-top: 4px; /* Align checkbox with text */
+    margin-right: 10px;
+    transform: scale(1.2);
+}
+
+.checkbox-group label {
+    font-weight: 400;
+    color: #333;
+    display: inline;
+}
+
+/* --- Submit Button --- */
+.submit-btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: #28a745; /* Success Green */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 25px;
+    transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: #218838;
+}
+
+/* --- Footer Note --- */
+.note {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px dashed #eee;
+}
+
+.note p {
+    color: #dc3545; /* Warning Red */
+    font-size: 13px;
+    font-style: italic;
+}

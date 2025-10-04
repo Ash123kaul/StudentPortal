@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal | Payment</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .payment-container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+        
+        .payment-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .payment-status {
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .status-paid {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        
+        .qr-container {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+        }
+        
+        .qr-placeholder {
+            width: 200px;
+            height: 200px;
+            background: #f8f9fa;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #dee2e6;
+        }
+        
+        .payment-details {
+            margin: 20px 0;
+        }
+        
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .payment-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <h1>Student Success Portal</h1>
+                </div>
+                <nav id="main-nav">
+                    <ul>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                        <li><a href="profile.html">My Profile</a></li>
+                        <li><a href="payment.html" class="active">Payments</a></li>
+                        <li><a href="alerts.html">Alerts</a></li>
+                        <li><a href="help.html">Help</a></li>
+                    </ul>
+                </nav>
+                <div class="user-actions">
+                    <span id="userWelcome">Welcome, Student</span>
+                    <button class="btn btn-primary" id="logout-btn">Logout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container payment-container">
+        <div class="payment-card">
+            <h2 style="text-align: center; margin-bottom: 20px;">Fee Payment</h2>
+            
+            <div id="paymentStatus" class="payment-status">
+                <!-- Status will be filled by JavaScript -->
+            </div>
+            
+            <div class="payment-details">
+                <h3 style="margin-bottom: 15px;">Payment Details</h3>
+                <div class="detail-row">
+                    <span>Student Name:</span>
+                    <span id="studentName">Loading...</span>
+                </div>
+                <div class="detail-row">
+                    <span>Student ID:</span>
+                    <span id="studentId">Loading...</span>
+                </div>
+                <div class="detail-row">
+                    <span>Semester:</span>
+                    <span id="studentSemester">Loading...</span>
+                </div>
+                <div class="detail-row">
+                    <span>Amount Due:</span>
+                    <span id="amountDue">₹25,000</span>
+                </div>
+                <div class="detail-row">
+                    <span>Due Date:</span>
+                    <span id="dueDate">15th of each month</span>
+                </div>
+            </div>
+            
+            <div id="paymentQR" style="display: none;">
+                <div class="qr-container">
+                    <h3>Scan to Pay</h3>
+                    <div class="qr-placeholder">
+                        <i class="fas fa-qrcode" style="font-size: 3rem; color: #6c757d;"></i>
+                    </div>
+                    <p>Scan this QR code with any UPI app to complete payment</p>
+                    <p style="font-size: 0.9rem; color: #6c757d;">Transaction ID: <span id="transactionId">TXN-2025-001</span></p>
+                </div>
+                
+                <div class="payment-actions">
+                    <button class="btn btn-outline" id="cancelPayment">Cancel</button>
+                    <button class="btn btn-primary" id="confirmPayment">I've Paid</button>
+                </div>
+            </div>
+            
+            <div id="payNowSection" style="text-align: center; margin-top: 30px;">
+                <button class="btn btn-primary btn-large" id="payNowBtn">Pay Now</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Student Success Portal</h3>
+                    <p>An AI-powered system for early identification of at-risk students to reduce dropout rates through timely intervention.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="dashboard.html">Dashboard</a>
+                    <a href="profile.html">Profile</a>
+                    <a href="payment.html">Payments</a>
+                    <a href="help.html">Help</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>Email: support@studentsuccess.edu</p>
+                    <p>Phone: (555) 123-4567</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Student Success Portal. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBSZ2Q4h5qC6DdofCHVaAGyCKkJBPDK0Gw",
+            authDomain: "student-portal-cf3fa.firebaseapp.com",
+            projectId: "student-portal-cf3fa",
+            storageBucket: "student-portal-cf3fa.firebasestorage.app",
+            messagingSenderId: "259776751437",
+            appId: "1:259776751437:web:211d3c709e22106d463904",
+            measurementId: "G-S7B9ZR9EWW"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+
+        let currentStudent = null;
+
+        // Check if user is logged in
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                try {
+                    const docRef = doc(db, "students", user.uid);
+                    const docSnap = await getDoc(docRef);
+
+                    if (docSnap.exists()) {
+                        currentStudent = { id: user.uid, ...docSnap.data() };
+                        populatePaymentPage(currentStudent);
+                    } else {
+                        console.error("No student data found");
+                    }
+                } catch (error) {
+                    console.error("Error fetching student data:", error);
+                }
+            } else {
+                window.location.href = 'Login.html';
+            }
+        });
+
+        function populatePaymentPage(student) {
+            document.getElementById('userWelcome').textContent = `Welcome, ${student.name.split(' ')[0]}`;
+            document.getElementById('studentName').textContent = student.name;
+            document.getElementById('studentId').textContent = student.id || 'N/A';
+            document.getElementById('studentSemester').textContent = `Semester ${student.semester}`;
+
+            const paymentStatus = document.getElementById('paymentStatus');
+            const payNowSection = document.getElementById('payNowSection');
+            const paymentQR = document.getElementById('paymentQR');
+
+            if (student.feesStatus === 'paid') {
+                paymentStatus.innerHTML = `
+                    <i class="fas fa-check-circle" style="font-size: 3rem; margin-bottom: 15px;"></i>
+                    <h3>Fees Already Paid</h3>
+                    <p>Your fees for the current semester have been paid. Thank you!</p>
+                `;
+                paymentStatus.className = 'payment-status status-paid';
+                payNowSection.style.display = 'none';
+            } else {
+                paymentStatus.innerHTML = `
+                    <i class="fas fa-exclamation-triangle" style="font-size: 3rem; margin-bottom: 15px;"></i>
+                    <h3>Fees Pending</h3>
+                    <p>Your fees for the current semester are pending. Please make the payment to avoid any restrictions.</p>
+                `;
+                paymentStatus.className = 'payment-status status-pending';
+                payNowSection.style.display = 'block';
+                paymentQR.style.display = 'none';
+            }
+        }
+
+        // Payment functionality
+        document.getElementById('payNowBtn').addEventListener('click', function() {
+            document.getElementById('paymentQR').style.display = 'block';
+            document.getElementById('payNowSection').style.display = 'none';
+            
+            // Generate a random transaction ID
+            const transactionId = 'TXN-' + Date.now();
+            document.getElementById('transactionId').textContent = transactionId;
+        });
+
+        document.getElementById('cancelPayment').addEventListener('click', function() {
+            document.getElementById('paymentQR').style.display = 'none';
+            document.getElementById('payNowSection').style.display = 'block';
+        });
+
+        document.getElementById('confirmPayment').addEventListener('click', async function() {
+            if (!currentStudent) return;
+            
+            try {
+                // Update fees status in Firestore
+                const studentRef = doc(db, "students", currentStudent.id);
+                await updateDoc(studentRef, {
+                    feesStatus: 'paid'
+                });
+                
+                // Show success message
+                alert('Payment confirmed successfully! Your fees status has been updated.');
+                
+                // Reload the page to reflect changes
+                window.location.reload();
+            } catch (error) {
+                console.error('Error updating payment status:', error);
+                alert('Error updating payment status. Please try again.');
+            }
+        });
+
+        // Logout functionality
+        document.getElementById('logout-btn').addEventListener('click', function() {
+            signOut(auth).then(() => {
+                window.location.href = 'index.html';
+            }).catch((error) => {
+                console.error('Logout error:', error);
+            });
+        });
+    </script>
+</body>
+</html>

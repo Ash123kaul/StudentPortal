@@ -1,0 +1,175 @@
+body {
+    font-family: 'Open Sans', Arial, sans-serif;
+    background-color: #eef2f6; /* Light, calming background */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.form-container {
+    background-color: #ffffff;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 700px;
+    border-top: 6px solid #ff9900; /* Vibrant color for a service-oriented form */
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+header h1 {
+    color: #333;
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+
+header p {
+    color: #666;
+    font-size: 16px;
+}
+
+/* --- Section Styling --- */
+.feedback-section, .optional-info {
+    margin-bottom: 35px;
+    padding: 20px;
+    background-color: #f7f9fc; /* Slightly darker background for sections */
+    border-radius: 8px;
+    border: 1px solid #eee;
+}
+
+h2 {
+    color: #007bff; /* Primary blue for headings */
+    font-size: 20px;
+    margin-top: 0;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #007bff20;
+}
+
+/* --- Form Group Styling --- */
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+input[type="text"],
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 15px;
+    transition: border-color 0.3s;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #ff9900;
+    outline: none;
+    box-shadow: 0 0 5px rgba(255, 153, 0, 0.3);
+}
+
+textarea {
+    resize: vertical;
+}
+
+/* --- Rating Scale Styling (Crucial for UX) --- */
+.rating-group .rating-scale {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80%; /* Center the scale nicely */
+    margin: 0 auto;
+    color: #666;
+    font-size: 14px;
+}
+
+.rating-scale input[type="radio"] {
+    display: none;
+}
+
+.rating-scale label {
+    display: block;
+    background-color: #e0e0e0;
+    color: #333;
+    padding: 8px 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: 700;
+    transition: background-color 0.2s, color 0.2s;
+    margin: 0 5px;
+}
+
+.rating-scale label:hover {
+    background-color: #ccc;
+}
+
+.rating-scale input[type="radio"]:checked + label {
+    background-color: #28a745; /* Green for selected rating */
+    color: white;
+    box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+}
+
+.rating-scale span {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+/* --- Checkbox Group Styling --- */
+.checkbox-group {
+    padding-left: 10px;
+}
+
+.checkbox-group label {
+    display: inline;
+    font-weight: 400;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.checkbox-group input[type="checkbox"] {
+    transform: scale(1.1);
+    margin-right: 5px;
+    width: auto;
+}
+
+/* --- Submit Button --- */
+.submit-btn {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background-color: #007bff; /* Primary Blue */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 30px;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+.submit-btn:hover {
+    background-color: #0056b3;
+}
+
+.submit-btn:active {
+    transform: scale(0.99);
+}
